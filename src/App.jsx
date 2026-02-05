@@ -12,11 +12,13 @@ function App() {
   });
 
   const moveButton = () => {
+    // Button is trapped in the wrapper
     const getRandomPosition = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const randomTop = Math.floor(Math.random() * height);
-      const randomLeft = Math.floor(Math.random() * width);
+      const wrapper = document.querySelector(".heart-wrapper");
+      const rect = wrapper.getBoundingClientRect();
+
+      const randomTop = Math.random() * (rect.height - 60);
+      const randomLeft = Math.random() * (rect.width - 100);
       return { position: "absolute", top: randomTop, left: randomLeft };
     };
 
@@ -25,57 +27,60 @@ function App() {
 
   return (
     <>
-      <div className="w-11/12 h-120 bg-amber-50 rounded-xl shadow-2xl p-5 md:w-200 md:h-120">
-        {!isConfirm ? (
-          <>
-            <div className="text-2xl md:text-3xl">
-              <p>🥺</p>
-              <p>👉👈</p>
-            </div>
-            <p className="text-3xl font-semibold text-gray-900 font-Bitcount mt-4">
-              BB will you be my Valentine?
-            </p>
-
-            <div className="flex gap-4 w-full justify-center mt-5">
-              <button
-                className="text-pink-400"
-                onClick={() => setIsConfirm(true)}
-              >
-                Yes
-              </button>
-              <button
-                style={{
-                  position: position.position,
-                  top: position.top,
-                  left: position.left,
-                  transition: "top 0.5s, left 0.5s",
-                }}
-                onMouseEnter={() => moveButton()}
-                onClick={() => moveButton()}
-              >
-                No
-              </button>
-            </div>
-
-            <div className="mt-40">
-              <p className="text-gray-900 font-Bitcount">
-                *Bawal ang NO, wag makulet!
+      <div className="heart-wrapper">
+        <div className="heart-bg"></div>
+        <div className="heart-content">
+          {!isConfirm ? (
+            <>
+              <div className="text-xl sm:text-2xl md:text-3xl">
+                <p>🥺</p>
+                <p>👉👈</p>
+              </div>
+              <p className="text-2xl sm:text-3xl font-semibold text-gray-900 font-Bitcount mt-4">
+                BB will you be my Valentine?
               </p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="text-xl flex flex-col justify-center gap-3 md:text-3xl">
-              <p className="text-black">🎉🎉🎉YAY!🎉🎉🎉</p>
-
-              <p className="text-black">Heart ka saken!</p>
-            </div>
-
-            <div className="flex justify-center mt-5">
-              <img className="w-60 h-60" src="./heart.gif" alt="" />
-            </div>
-          </>
-        )}
+              <div className="flex gap-3 sm:gap-4 w-full justify-center mt-4 sm:mt-5">
+                <button
+                  className="text-pink-400"
+                  onClick={() => setIsConfirm(true)}
+                >
+                  Yes
+                </button>
+                <button
+                  style={{
+                    position: position.position,
+                    top: position.top,
+                    left: position.left,
+                    transition: "top 0.5s, left 0.5s",
+                  }}
+                  onMouseEnter={() => moveButton()}
+                  onClick={() => moveButton()}
+                >
+                  No
+                </button>
+              </div>
+              <div className="mt-20 sm:mt-32 md:mt-40">
+                <p className="text-sm sm:text-base text-gray-900 font-Bitcount">
+                  *Bawal ang NO, wag makulet!
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl flex flex-col justify-center gap-3">
+                <p className="text-black">🎉🎉🎉 YAY! 🎉🎉🎉</p>
+                <p className="text-black">Heart ka saken!</p>
+              </div>
+              <div className="flex justify-center mt-4 sm:mt-5">
+                <img
+                  className="w-1/2 rounded-2xl"
+                  src="./heart_ka_saken.jpg"
+                  alt=""
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </>
   );
